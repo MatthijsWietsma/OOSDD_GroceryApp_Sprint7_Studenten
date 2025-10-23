@@ -2,28 +2,36 @@
 using CommunityToolkit.Mvvm.Input;
 using Grocery.Core.Interfaces.Services;
 using Grocery.Core.Models;
+using Grocery.App.Views;
 using System.Collections.ObjectModel;
 
 namespace Grocery.App.ViewModels
 {
     public partial class GroceryListViewModel : BaseViewModel
     {
-        public ObservableCollection<GroceryList> GroceryLists { get; set; }
         private readonly IGroceryListService _groceryListService;
 
-        public GroceryListViewModel(IGroceryListService groceryListService) 
+        [ObservableProperty]
+        private Client client;
+
+        public ObservableCollection<GroceryList> GroceryLists { get; set; }
+
+        public GroceryListViewModel(IGroceryListService groceryListService, GlobalViewModel global)
         {
             Title = "Boodschappenlijst";
             _groceryListService = groceryListService;
             GroceryLists = new(_groceryListService.GetAll());
+
+            Client = global.Client;
         }
 
         [RelayCommand]
         public async Task SelectGroceryList(GroceryList groceryList)
         {
-            Dictionary<string, object> paramater = new() { { nameof(GroceryList), groceryList } };
-            await Shell.Current.GoToAsync($"{nameof(Views.GroceryListItemsView)}?Titel={groceryList.Name}", true, paramater);
+            Dictionary<string, object> parameter = new() { { nameof(GroceryList), groceryList } };
+            await Shell.Current.GoToAsync($"{nameof(GroceryListItemsView)}?Titel={groceryList.Name}", true, parameter);
         }
+
         public override void OnAppearing()
         {
             base.OnAppearing();
