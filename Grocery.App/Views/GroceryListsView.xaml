@@ -5,6 +5,12 @@
              xmlns:vm="clr-namespace:Grocery.App.ViewModels"
              xmlns:m="clr-namespace:Grocery.Core.Models;assembly=Grocery.Core"
              Title="GroceryListsView">
+
+    <ContentPage.ToolbarItems>
+        <ToolbarItem Text="{Binding Client.Name, StringFormat='Welkom {0}'}"/>
+    </ContentPage.ToolbarItems>
+
+
     <Shell.TitleView>
         <Grid>
             <Label Text="Boodschappenlijsten" FontSize="Large" HorizontalOptions="Center" VerticalOptions="Center" />

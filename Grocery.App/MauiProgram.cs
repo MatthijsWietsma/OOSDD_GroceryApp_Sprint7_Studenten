@@ -1,11 +1,12 @@
-﻿using Grocery.Core.Services;
+﻿using CommunityToolkit.Maui;
 using Grocery.App.ViewModels;
 using Grocery.App.Views;
-using Microsoft.Extensions.Logging;
-using Grocery.Core.Interfaces.Services;
-using Grocery.Core.Interfaces.Repositories;
 using Grocery.Core.Data.Repositories;
-using CommunityToolkit.Maui;
+using Grocery.Core.Interfaces.Repositories;
+using Grocery.Core.Interfaces.Services;
+using Grocery.Core.Services;
+using Microsoft.Extensions.Logging;
+using Microsoft.Win32;
 
 namespace Grocery.App
 {
@@ -24,7 +25,7 @@ namespace Grocery.App
                 });
 
 #if DEBUG
-    		builder.Logging.AddDebug();
+            builder.Logging.AddDebug();
 #endif
             builder.Services.AddSingleton<IGroceryListService, GroceryListService>();
             builder.Services.AddSingleton<IGroceryListItemsService, GroceryListItemsService>();
@@ -44,6 +45,7 @@ namespace Grocery.App
             builder.Services.AddTransient<ProductView>().AddTransient<ProductViewModel>();
             builder.Services.AddTransient<ChangeColorView>().AddTransient<ChangeColorViewModel>();
             builder.Services.AddTransient<LoginView>().AddTransient<LoginViewModel>();
+            builder.Services.AddTransient<RegistrationView>().AddTransient<RegistrationViewModel>();
             return builder.Build();
         }
     }
